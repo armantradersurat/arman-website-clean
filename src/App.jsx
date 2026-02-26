@@ -2,34 +2,41 @@ export default function App() {
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
       
-      {/* HERO SECTION */}
-      <section style={{
-        background: "#111",
-        color: "white",
-        padding: "80px 20px",
-        textAlign: "center"
-      }}>
-        <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>
-          Arman Trader Surat
-        </h1>
-        <p style={{ fontSize: "20px", marginBottom: "30px" }}>
-          Premium Jari & Zari Textile Supplier
-        </p>
-       <a
-  href="https://wa.me/919625686843?text=Hello%20Arman%20Trader,%20I%20want%20bulk%20price%20details%20for%20Jari%20and%20Zari."
-  target="_blank"
-  rel="noopener noreferrer"
+<section
   style={{
-    background: "#25D366",
+    background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1607082350899-7e105aa886ae')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     color: "white",
-    padding: "12px 25px",
-    textDecoration: "none",
-    borderRadius: "5px",
-    fontSize: "18px"
+    padding: "120px 20px",
+    textAlign: "center"
   }}
 >
-  Order on WhatsApp
-</a>
+  <h1 style={{ fontSize: "50px", marginBottom: "20px", fontWeight: "bold" }}>
+    Arman Trader Surat
+  </h1>
+
+  <p style={{ fontSize: "22px", marginBottom: "40px" }}>
+    Premium Jari & Zari Textile Supplier from Surat
+  </p>
+
+  <a
+    href="https://wa.me/919625686843?text=Hello%20Arman%20Trader,%20I%20want%20bulk%20price%20details%20for%20Jari%20and%20Zari."
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      background: "#25D366",
+      color: "white",
+      padding: "15px 35px",
+      textDecoration: "none",
+      borderRadius: "8px",
+      fontSize: "20px",
+      fontWeight: "bold"
+    }}
+  >
+    Get Bulk Price on WhatsApp
+  </a>
+</section>
       </section>
 
       {/* PRODUCT CATEGORIES */}
