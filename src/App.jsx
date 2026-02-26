@@ -15,19 +15,21 @@ export default function App() {
         <p style={{ fontSize: "20px", marginBottom: "30px" }}>
           Premium Jari & Zari Textile Supplier
         </p>
-        <a 
-          href="https://wa.me/+91 9625686843"
-          style={{
-            background: "#25D366",
-            color: "white",
-            padding: "12px 25px",
-            textDecoration: "none",
-            borderRadius: "5px",
-            fontSize: "18px"
-          }}
-        >
-          Order on WhatsApp
-        </a>
+       <a
+  href="https://wa.me/919625686843?text=Hello%20Arman%20Trader,%20I%20want%20bulk%20price%20details%20for%20Jari%20and%20Zari."
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    background: "#25D366",
+    color: "white",
+    padding: "12px 25px",
+    textDecoration: "none",
+    borderRadius: "5px",
+    fontSize: "18px"
+  }}
+>
+  Order on WhatsApp
+</a>
       </section>
 
       {/* PRODUCT CATEGORIES */}
@@ -64,7 +66,7 @@ export default function App() {
         <h2>Contact Us</h2>
         <p>Surat, Gujarat, India</p>
         <p>Email: armantrader@example.com</p>
-        <p>Phone: +91 9625686843</p>
+        <p>Phone: 919625686843</p>
       </section>
 
       {/* FOOTER */}
