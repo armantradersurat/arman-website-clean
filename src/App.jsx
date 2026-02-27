@@ -1,11 +1,27 @@
 export default function App() {
 
   const products = [
-    { name: "Jari", inStock: true },
-    { name: "Zari", inStock: false },
-    { name: "Embroidery Thread", inStock: true },
-    { name: "Textile Accessories", inStock: true }
-  ];
+  {
+    name: "Jari",
+    inStock: true,
+    image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
+  },
+  {
+    name: "Zari",
+    inStock: false,
+    image: "https://images.unsplash.com/photo-1593032465171-8f0c5a4d5d4b"
+  },
+  {
+    name: "Embroidery Thread",
+    inStock: true,
+    image: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369"
+  },
+  {
+    name: "Textile Accessories",
+    inStock: true,
+    image: "https://images.unsplash.com/photo-1604709177225-055f99402ea3"
+  }
+];
 
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
@@ -76,7 +92,17 @@ export default function App() {
   flexWrap: "wrap"
 }}>
   {products.map((product, index) => (
-    <div
+    <img
+  src={product.image}
+  alt={product.name}
+  style={{
+    width: "100%",
+    height: "150px",
+    objectFit: "cover",
+    borderRadius: "8px",
+    marginBottom: "15px"
+  }}
+/>
       key={index}
       style={{
         background: "#1c1c1c",
