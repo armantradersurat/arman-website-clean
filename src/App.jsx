@@ -2,22 +2,22 @@ export default function App() {
 
   const products = [
     {
-      name: "Jari",
+      name: "Jari Supplier in Surat",
       inStock: true,
       image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e"
     },
     {
-      name: "Zari",
+      name: "Zari Wholesale Gujarat",
       inStock: false,
       image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
     },
     {
-      name: "Embroidery Thread",
+      name: "Embroidery Metallic Thread",
       inStock: true,
       image: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369"
     },
     {
-      name: "Textile Accessories",
+      name: "Textile Accessories Supplier",
       inStock: true,
       image: "https://images.unsplash.com/photo-1604709177225-055f99402ea3"
     }
@@ -45,6 +45,7 @@ export default function App() {
         <div style={{ display: "flex", gap: "25px" }}>
           <a href="#home" style={{ color: "white", textDecoration: "none" }}>Home</a>
           <a href="#products" style={{ color: "white", textDecoration: "none" }}>Products</a>
+          <a href="#about" style={{ color: "white", textDecoration: "none" }}>About</a>
           <a href="#contact" style={{ color: "white", textDecoration: "none" }}>Contact</a>
         </div>
       </nav>
@@ -64,11 +65,11 @@ export default function App() {
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent"
         }}>
-          Arman Trader Surat
+          Arman Trader Surat – Jari & Zari Supplier in Surat, Gujarat
         </h1>
 
         <p style={{ fontSize: "22px", marginBottom: "40px" }}>
-          Premium Jari & Zari Metallic Supplier from Surat
+          Premium Jari & Zari Metallic Thread Supplier for Textile & Embroidery Industry
         </p>
 
         <a
@@ -96,14 +97,8 @@ export default function App() {
         background: "#111",
         color: "white"
       }}>
-        <h2 style={{
-          marginBottom: "50px",
-          fontSize: "36px",
-          background: "linear-gradient(to right, gold, #f5d742)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }}>
-          Our Premium Products
+        <h2 style={{ marginBottom: "50px", fontSize: "36px", color: "gold" }}>
+          Our Premium Textile Products
         </h2>
 
         <div style={{
@@ -146,6 +141,7 @@ export default function App() {
                 <a
                   href="https://wa.me/919625686843"
                   target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     display: "inline-block",
                     marginTop: "15px",
@@ -164,13 +160,28 @@ export default function App() {
         </div>
       </section>
 
+      {/* ABOUT SECTION */}
+      <section id="about" style={{
+        padding: "70px 20px",
+        background: "#ffffff",
+        textAlign: "center"
+      }}>
+        <h2>About Arman Trader Surat</h2>
+        <p style={{ maxWidth: "900px", margin: "20px auto", lineHeight: "1.7" }}>
+          Arman Trader Surat is a trusted Jari and Zari supplier in Surat, Gujarat.
+          We specialize in premium metallic threads for embroidery, textile manufacturers,
+          wholesalers and bulk buyers across India. Our mission is to deliver
+          high quality textile materials at competitive wholesale prices with fast dispatch.
+        </p>
+      </section>
+
       {/* CONTACT */}
       <section id="contact" style={{
         background: "#f5f5f5",
         padding: "60px 20px",
         textAlign: "center"
       }}>
-        <h2>Contact Us</h2>
+        <h2>Contact Arman Trader Surat</h2>
         <p>Surat, Gujarat, India</p>
         <p>Phone: 919625686843</p>
       </section>
@@ -203,7 +214,7 @@ export default function App() {
         padding: "20px",
         textAlign: "center"
       }}>
-        © {new Date().getFullYear()} Arman Trader Surat
+        © {new Date().getFullYear()} Arman Trader Surat – Jari & Zari Supplier
       </footer>
 
     </div>
