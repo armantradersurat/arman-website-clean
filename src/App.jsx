@@ -138,7 +138,27 @@ export default function App() {
       }}>
         © {new Date().getFullYear()} Arman Trader Surat. All rights reserved.
       </footer>
-
+{/* FLOATING WHATSAPP BUTTON */}
+<a
+  href="https://wa.me/919625686843?text=Hello%20Arman%20Trader,%20I%20want%20bulk%20price%20details."
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    background: "#25D366",
+    color: "white",
+    padding: "15px 18px",
+    borderRadius: "50%",
+    fontSize: "22px",
+    textDecoration: "none",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+    zIndex: 1000
+  }}
+>
+  💬
+</a>
     </div>
   )
 }
