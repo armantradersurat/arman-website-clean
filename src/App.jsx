@@ -12,10 +12,16 @@ export default function App() {
     textAlign: "center"
   }}
 >
-  <h1 style={{ fontSize: "50px", marginBottom: "20px", fontWeight: "bold" }}>
-    Arman Trader Surat
-  </h1>
-
+  <h1 style={{
+  fontSize: "52px",
+  marginBottom: "20px",
+  fontWeight: "bold",
+  background: "linear-gradient(to right, gold, #f5d742)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent"
+}}>
+  Arman Trader Surat
+</h1>
   <p style={{ fontSize: "22px", marginBottom: "40px" }}>
     Premium Jari & Zari Textile Supplier from Surat
   </p>
@@ -54,7 +60,8 @@ export default function App() {
               padding: "30px",
               width: "220px",
               borderRadius: "10px",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+transition: "0.3s"
             }}>
               <h3>{item}</h3>
               <p>High quality {item} available in bulk.</p>
