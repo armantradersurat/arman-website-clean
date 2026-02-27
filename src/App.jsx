@@ -1,76 +1,58 @@
+import { useState } from "react";
+
 export default function App() {
 
-  const products = [
-    {
-      name: "Jari Supplier in Surat",
-      inStock: true,
-      image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e"
-    },
-    {
-      name: "Zari Wholesale Gujarat",
-      inStock: false,
-      image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
-    },
-    {
-      name: "Embroidery Metallic Thread",
-      inStock: true,
-      image: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369"
-    },
-    {
-      name: "Textile Accessories Supplier",
-      inStock: true,
-      image: "https://images.unsplash.com/photo-1604709177225-055f99402ea3"
-    }
-  ];
+  const [activeCategory, setActiveCategory] = useState("Jari");
+
+  const products = {
+    Jari: [
+      { name: "Gold Jari Thread", price: "₹1,200/kg", stock: true },
+      { name: "Silver Jari Thread", price: "₹1,050/kg", stock: true },
+      { name: "Copper Jari Thread", price: "₹980/kg", stock: false },
+    ],
+    Zari: [
+      { name: "Premium Zari Roll", price: "₹2,500/roll", stock: true },
+      { name: "Heavy Zari Border", price: "₹3,200/roll", stock: false },
+    ],
+    "Embroidery Thread": [
+      { name: "Metallic Embroidery Thread", price: "₹450/spool", stock: true },
+      { name: "Color Embroidery Thread", price: "₹350/spool", stock: true },
+    ],
+    "Textile Accessories": [
+      { name: "Beads & Sequins", price: "₹600/pack", stock: true },
+      { name: "Decorative Lace", price: "₹750/roll", stock: false },
+    ]
+  };
+
+  const categories = Object.keys(products);
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif" }}>
+    <div style={{ fontFamily: "Arial", background: "#f4f1ea" }}>
 
       {/* NAVBAR */}
       <nav style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-        background: "rgba(0,0,0,0.9)",
-        backdropFilter: "blur(10px)",
-        padding: "15px 40px",
+        background: "#0b1f3a",
+        padding: "18px 60px",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
-        zIndex: 1000
+        color: "white"
       }}>
-        <div style={{ color: "gold", fontWeight: "bold" }}>
-          Arman Trader Surat
-        </div>
-
-        <div style={{ display: "flex", gap: "25px" }}>
-          <a href="#home" style={{ color: "white", textDecoration: "none" }}>Home</a>
-          <a href="#products" style={{ color: "white", textDecoration: "none" }}>Products</a>
-          <a href="#about" style={{ color: "white", textDecoration: "none" }}>About</a>
-          <a href="#contact" style={{ color: "white", textDecoration: "none" }}>Contact</a>
-        </div>
+        <h2 style={{ color: "gold", margin: 0 }}>Arman Trader</h2>
+        <div>Surat & All India Delivery Available</div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section id="home" style={{
-        background: "linear-gradient(135deg, #1a1a1a, #000000, #2c2c2c)",
+      {/* HERO */}
+      <section style={{
+        background: "#0b1f3a",
         color: "white",
-        padding: "160px 20px",
+        padding: "80px 20px",
         textAlign: "center"
       }}>
-        <h1 style={{
-          fontSize: "52px",
-          marginBottom: "20px",
-          fontWeight: "bold",
-          background: "linear-gradient(to right, gold, #f5d742)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }}>
-          Arman Trader Surat – Jari & Zari Supplier in Surat, Gujarat
+        <h1 style={{ color: "gold", fontSize: "40px" }}>
+          Premium Jari & Zari Wholesale Supplier
         </h1>
-
-        <p style={{ fontSize: "22px", marginBottom: "40px" }}>
-          Premium Metallic Thread & Textile Supplier for Wholesale Buyers
+        <p>
+          Delivering High Quality Textile Materials in Surat & Across India
         </p>
 
         <a
@@ -78,79 +60,79 @@ export default function App() {
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            background: "#25D366",
-            color: "white",
-            padding: "15px 35px",
+            background: "gold",
+            color: "#0b1f3a",
+            padding: "12px 25px",
+            borderRadius: "6px",
             textDecoration: "none",
-            borderRadius: "8px",
-            fontSize: "20px",
             fontWeight: "bold"
           }}
         >
-          Get Bulk Price on WhatsApp
+          Get Price on WhatsApp
         </a>
       </section>
 
-      {/* PRODUCTS */}
-      <section id="products" style={{
-        padding: "80px 20px",
-        textAlign: "center",
-        background: "#111",
-        color: "white"
-      }}>
-        <h2 style={{ marginBottom: "50px", fontSize: "36px", color: "gold" }}>
-          Our Premium Textile Products
-        </h2>
+      {/* CATEGORY TABS */}
+      <section style={{ padding: "40px 20px", textAlign: "center" }}>
+        <h2 style={{ color: "#0b1f3a" }}>Our Products</h2>
 
+        <div style={{ marginBottom: "30px" }}>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              style={{
+                margin: "10px",
+                padding: "10px 20px",
+                borderRadius: "6px",
+                border: "none",
+                cursor: "pointer",
+                background: activeCategory === cat ? "gold" : "#0b1f3a",
+                color: activeCategory === cat ? "#0b1f3a" : "white",
+                fontWeight: "bold"
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* PRODUCTS GRID */}
         <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "40px",
-          flexWrap: "wrap"
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "20px",
+          maxWidth: "1200px",
+          margin: "auto"
         }}>
-          {products.map((product, index) => (
+          {products[activeCategory].map((item, index) => (
             <div key={index} style={{
-              background: "#1c1c1c",
-              padding: "25px",
-              width: "250px",
-              borderRadius: "12px",
-              border: product.inStock ? "2px solid gold" : "2px solid red",
-              opacity: product.inStock ? 1 : 0.6,
-              transition: "0.3s",
-              cursor: "pointer",
-              boxShadow: product.inStock
-                ? "0 0 15px rgba(255,215,0,0.4)"
-                : "0 0 10px rgba(255,0,0,0.4)"
+              background: "white",
+              padding: "20px",
+              borderRadius: "10px",
+              boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+              border: item.stock ? "2px solid green" : "2px solid red"
             }}>
-
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  marginBottom: "15px"
-                }}
-              />
-
-              <h3 style={{ color: product.inStock ? "gold" : "red" }}>
-                {product.name}
-              </h3>
-
-              <p>
-                {product.inStock ? "Available in Stock" : "Currently Out of Stock"}
+              <h3>{item.name}</h3>
+              <p style={{ fontWeight: "bold", color: "#0b1f3a" }}>
+                {item.price}
               </p>
 
-              {product.inStock && (
+              <p style={{
+                color: item.stock ? "green" : "red",
+                fontWeight: "bold"
+              }}>
+                {item.stock ? "In Stock" : "Out of Stock"}
+              </p>
+
+              {item.stock && (
                 <a
                   href="https://wa.me/919625686843"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     display: "inline-block",
-                    marginTop: "15px",
+                    marginTop: "10px",
                     background: "#25D366",
                     color: "white",
                     padding: "8px 15px",
@@ -166,76 +148,30 @@ export default function App() {
         </div>
       </section>
 
-      {/* PREMIUM ABOUT SECTION */}
-      <section id="about" style={{
-        padding: "100px 20px",
-        background: "linear-gradient(135deg, #000000, #1a1a1a)",
+      {/* DELIVERY SECTION */}
+      <section style={{
+        background: "#0b1f3a",
         color: "white",
+        padding: "50px 20px",
         textAlign: "center"
       }}>
-
-        <h2 style={{
-          fontSize: "40px",
-          marginBottom: "30px",
-          background: "linear-gradient(to right, gold, #f5d742)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }}>
-          About Arman Trader Surat
-        </h2>
-
-        <p style={{
-          maxWidth: "900px",
-          margin: "auto",
-          fontSize: "18px",
-          lineHeight: "1.8",
-          color: "#ddd"
-        }}>
-          Arman Trader Surat is a trusted Jari and Zari supplier based in Surat, Gujarat.
-          We serve wholesalers, textile manufacturers and bulk buyers across India
-          with premium metallic threads and embroidery materials.
+        <h2 style={{ color: "gold" }}>Delivery Information</h2>
+        <p>
+          ✔ Fast Delivery in Surat  
+          ✔ Secure Packaging  
+          ✔ Dispatch Across India  
+          ✔ Bulk & Wholesale Orders Accepted  
         </p>
-
-        <div style={{
-          marginTop: "50px",
-          display: "flex",
-          justifyContent: "center",
-          gap: "40px",
-          flexWrap: "wrap"
-        }}>
-          <div>
-            <h3 style={{ color: "gold" }}>✔ Bulk Supply</h3>
-            <p>All India Wholesale Distribution</p>
-          </div>
-          <div>
-            <h3 style={{ color: "gold" }}>✔ Premium Quality</h3>
-            <p>Metallic & Embroidery Threads</p>
-          </div>
-          <div>
-            <h3 style={{ color: "gold" }}>✔ Fast Dispatch</h3>
-            <p>Quick Order Processing</p>
-          </div>
-        </div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" style={{
-        background: "#f5f5f5",
-        padding: "60px 20px",
-        textAlign: "center"
-      }}>
-        <h2>Contact Arman Trader Surat</h2>
-        <p>Surat, Gujarat, India</p>
-        <p>Phone: 919625686843</p>
-      </section>
-
+      {/* FOOTER */}
       <footer style={{
         background: "#111",
         color: "white",
         padding: "20px",
         textAlign: "center"
       }}>
-        © {new Date().getFullYear()} Arman Trader Surat
+        © {new Date().getFullYear()} Arman Trader | Surat & All India Supplier
       </footer>
 
     </div>
