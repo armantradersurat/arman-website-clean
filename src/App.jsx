@@ -36,7 +36,6 @@ export default function App() {
   >
     Get Bulk Price on WhatsApp
   </a>
-</section>
       </section>
 
       {/* PRODUCT CATEGORIES */}
