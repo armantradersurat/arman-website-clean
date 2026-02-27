@@ -23,7 +23,7 @@ export default function App() {
   Arman Trader Surat
 </h1>
   <p style={{ fontSize: "22px", marginBottom: "40px" }}>
-    Premium Jari & Zari Textile Supplier from Surat
+    Premium Jari & Zari Metallic Supplier from Surat
   </p>
 
   <a
@@ -45,30 +45,49 @@ export default function App() {
       </section>
 
       {/* PRODUCT CATEGORIES */}
-      <section style={{ padding: "60px 20px", textAlign: "center" }}>
-        <h2 style={{ marginBottom: "40px" }}>Our Products</h2>
+<section style={{
+  padding: "80px 20px",
+  textAlign: "center",
+  background: "#111",
+  color: "white"
+}}>
+  <h2 style={{
+    marginBottom: "50px",
+    fontSize: "36px",
+    background: "linear-gradient(to right, gold, #f5d742)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent"
+  }}>
+    Our Premium Products
+  </h2>
 
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "30px",
-          flexWrap: "wrap"
-        }}>
-          {["Jari", "Zari", "Embroidery Thread", "Textile Accessories"].map((item, index) => (
-            <div key={index} style={{
-              border: "1px solid #ddd",
-              padding: "30px",
-              width: "220px",
-              borderRadius: "10px",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-transition: "0.3s"
-            }}>
-              <h3>{item}</h3>
-              <p>High quality {item} available in bulk.</p>
-            </div>
-          ))}
-        </div>
-      </section>
+  <div style={{
+    display: "flex",
+    justifyContent: "center",
+    gap: "40px",
+    flexWrap: "wrap"
+  }}>
+    {["Jari", "Zari", "Embroidery Thread", "Textile Accessories"].map((item, index) => (
+      <div
+        key={index}
+        style={{
+          background: "#1c1c1c",
+          padding: "35px",
+          width: "240px",
+          borderRadius: "12px",
+          border: "2px solid gold",
+          boxShadow: "0 10px 25px rgba(255,215,0,0.2)",
+          transition: "0.3s"
+        }}
+      >
+        <h3 style={{ color: "gold", marginBottom: "15px" }}>{item}</h3>
+        <p style={{ color: "#ddd" }}>
+          High quality {item} available in bulk for textile manufacturing.
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* CONTACT SECTION */}
       <section style={{
