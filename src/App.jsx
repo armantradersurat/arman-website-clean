@@ -4,7 +4,7 @@ export default function App() {
       
 <section
   style={{
-    background: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1607082350899-7e105aa886ae')",
+    background: "linear-gradient(135deg, #1a1a1a, #000000, #2c2c2c)",
     backgroundSize: "cover",
     backgroundPosition: "center",
     color: "white",
