@@ -61,32 +61,52 @@ export default function App() {
     Our Premium Products
   </h2>
 
-  <div style={{
-    display: "flex",
-    justifyContent: "center",
-    gap: "40px",
-    flexWrap: "wrap"
-  }}>
-    {["Jari", "Zari", "Embroidery Thread", "Textile Accessories"].map((item, index) => (
-      <div
-        key={index}
-        style={{
-          background: "#1c1c1c",
-          padding: "35px",
-          width: "240px",
-          borderRadius: "12px",
-          border: "2px solid gold",
-          boxShadow: "0 10px 25px rgba(255,215,0,0.2)",
-          transition: "0.3s"
-        }}
-      >
-        <h3 style={{ color: "gold", marginBottom: "15px" }}>{item}</h3>
-        <p style={{ color: "#ddd" }}>
-          High quality {item} available in bulk for textile manufacturing.
-        </p>
-      </div>
-    ))}
-  </div>
+<div style={{
+  display: "flex",
+  justifyContent: "center",
+  gap: "40px",
+  flexWrap: "wrap"
+}}>
+  {products.map((product, index) => (
+    <div
+      key={index}
+      style={{
+        background: "#1c1c1c",
+        padding: "35px",
+        width: "240px",
+        borderRadius: "12px",
+        border: product.inStock ? "2px solid gold" : "2px solid red",
+        opacity: product.inStock ? 1 : 0.6
+      }}
+    >
+      <h3 style={{ color: product.inStock ? "gold" : "red" }}>
+        {product.name}
+      </h3>
+
+      <p>
+        {product.inStock ? "Available in Stock" : "Currently Out of Stock"}
+      </p>
+
+      {product.inStock && (
+        <a
+          href="https://wa.me/919625686843"
+          target="_blank"
+          style={{
+            display: "inline-block",
+            marginTop: "15px",
+            background: "#25D366",
+            color: "white",
+            padding: "8px 15px",
+            borderRadius: "5px",
+            textDecoration: "none"
+          }}
+        >
+          Order Now
+        </a>
+      )}
+    </div>
+  ))}
+</div>
 </section>
 
       {/* CONTACT SECTION */}
