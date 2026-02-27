@@ -1,222 +1,68 @@
-export default function App() {
+{/* PREMIUM ABOUT SECTION */}
+<section id="about" style={{
+  padding: "100px 20px",
+  background: "linear-gradient(135deg, #000000, #1a1a1a)",
+  color: "white",
+  textAlign: "center"
+}}>
 
-  const products = [
-    {
-      name: "Jari Supplier in Surat",
-      inStock: true,
-      image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e"
-    },
-    {
-      name: "Zari Wholesale Gujarat",
-      inStock: false,
-      image: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db"
-    },
-    {
-      name: "Embroidery Metallic Thread",
-      inStock: true,
-      image: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369"
-    },
-    {
-      name: "Textile Accessories Supplier",
-      inStock: true,
-      image: "https://images.unsplash.com/photo-1604709177225-055f99402ea3"
-    }
-  ];
+  <h2 style={{
+    fontSize: "40px",
+    marginBottom: "30px",
+    background: "linear-gradient(to right, gold, #f5d742)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent"
+  }}>
+    About Arman Trader Surat
+  </h2>
 
-  return (
-    <div style={{ fontFamily: "Arial, sans-serif" }}>
+  <p style={{
+    maxWidth: "900px",
+    margin: "auto",
+    fontSize: "18px",
+    lineHeight: "1.8",
+    color: "#ddd"
+  }}>
+    Arman Trader Surat is one of the trusted and growing names in the textile
+    industry of Surat, Gujarat. We specialize in premium quality Jari, Zari,
+    and metallic embroidery threads supplied to wholesalers, manufacturers,
+    and bulk textile buyers across India.
+  </p>
 
-      {/* NAVBAR */}
-      <nav style={{
-        position: "fixed",
-        top: 0,
-        width: "100%",
-        background: "#000",
-        padding: "15px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        zIndex: 1000
-      }}>
-        <div style={{ color: "gold", fontWeight: "bold" }}>
-          Arman Trader Surat
-        </div>
+  <p style={{
+    maxWidth: "900px",
+    margin: "30px auto",
+    fontSize: "18px",
+    lineHeight: "1.8",
+    color: "#ccc"
+  }}>
+    With a strong focus on quality, competitive wholesale pricing, and fast
+    dispatch, we ensure our customers receive reliable textile materials
+    suitable for embroidery, garment manufacturing, saree borders,
+    and designer textile production.
+  </p>
 
-        <div style={{ display: "flex", gap: "25px" }}>
-          <a href="#home" style={{ color: "white", textDecoration: "none" }}>Home</a>
-          <a href="#products" style={{ color: "white", textDecoration: "none" }}>Products</a>
-          <a href="#about" style={{ color: "white", textDecoration: "none" }}>About</a>
-          <a href="#contact" style={{ color: "white", textDecoration: "none" }}>Contact</a>
-        </div>
-      </nav>
-
-      {/* HERO SECTION */}
-      <section id="home" style={{
-        background: "linear-gradient(135deg, #1a1a1a, #000000, #2c2c2c)",
-        color: "white",
-        padding: "160px 20px",
-        textAlign: "center"
-      }}>
-        <h1 style={{
-          fontSize: "52px",
-          marginBottom: "20px",
-          fontWeight: "bold",
-          background: "linear-gradient(to right, gold, #f5d742)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent"
-        }}>
-          Arman Trader Surat – Jari & Zari Supplier in Surat, Gujarat
-        </h1>
-
-        <p style={{ fontSize: "22px", marginBottom: "40px" }}>
-          Premium Jari & Zari Metallic Thread Supplier for Textile & Embroidery Industry
-        </p>
-
-        <a
-          href="https://wa.me/919625686843"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            background: "#25D366",
-            color: "white",
-            padding: "15px 35px",
-            textDecoration: "none",
-            borderRadius: "8px",
-            fontSize: "20px",
-            fontWeight: "bold"
-          }}
-        >
-          Get Bulk Price on WhatsApp
-        </a>
-      </section>
-
-      {/* PRODUCTS */}
-      <section id="products" style={{
-        padding: "80px 20px",
-        textAlign: "center",
-        background: "#111",
-        color: "white"
-      }}>
-        <h2 style={{ marginBottom: "50px", fontSize: "36px", color: "gold" }}>
-          Our Premium Textile Products
-        </h2>
-
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "40px",
-          flexWrap: "wrap"
-        }}>
-          {products.map((product, index) => (
-            <div key={index} style={{
-              background: "#1c1c1c",
-              padding: "25px",
-              width: "250px",
-              borderRadius: "12px",
-              border: product.inStock ? "2px solid gold" : "2px solid red",
-              opacity: product.inStock ? 1 : 0.6
-            }}>
-
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  marginBottom: "15px"
-                }}
-              />
-
-              <h3 style={{ color: product.inStock ? "gold" : "red" }}>
-                {product.name}
-              </h3>
-
-              <p>
-                {product.inStock ? "Available in Stock" : "Currently Out of Stock"}
-              </p>
-
-              {product.inStock && (
-                <a
-                  href="https://wa.me/919625686843"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "inline-block",
-                    marginTop: "15px",
-                    background: "#25D366",
-                    color: "white",
-                    padding: "8px 15px",
-                    borderRadius: "5px",
-                    textDecoration: "none"
-                  }}
-                >
-                  Order Now
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ABOUT SECTION */}
-      <section id="about" style={{
-        padding: "70px 20px",
-        background: "#ffffff",
-        textAlign: "center"
-      }}>
-        <h2>About Arman Trader Surat</h2>
-        <p style={{ maxWidth: "900px", margin: "20px auto", lineHeight: "1.7" }}>
-          Arman Trader Surat is a trusted Jari and Zari supplier in Surat, Gujarat.
-          We specialize in premium metallic threads for embroidery, textile manufacturers,
-          wholesalers and bulk buyers across India. Our mission is to deliver
-          high quality textile materials at competitive wholesale prices with fast dispatch.
-        </p>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" style={{
-        background: "#f5f5f5",
-        padding: "60px 20px",
-        textAlign: "center"
-      }}>
-        <h2>Contact Arman Trader Surat</h2>
-        <p>Surat, Gujarat, India</p>
-        <p>Phone: 919625686843</p>
-      </section>
-
-      {/* FLOATING WHATSAPP */}
-      <a
-        href="https://wa.me/919625686843"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          background: "#25D366",
-          color: "white",
-          padding: "15px 18px",
-          borderRadius: "50%",
-          fontSize: "22px",
-          textDecoration: "none",
-          boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-          zIndex: 1000
-        }}
-      >
-        💬
-      </a>
-
-      <footer style={{
-        background: "#111",
-        color: "white",
-        padding: "20px",
-        textAlign: "center"
-      }}>
-        © {new Date().getFullYear()} Arman Trader Surat – Jari & Zari Supplier
-      </footer>
-
+  <div style={{
+    marginTop: "50px",
+    display: "flex",
+    justifyContent: "center",
+    gap: "40px",
+    flexWrap: "wrap"
+  }}>
+    <div>
+      <h3 style={{ color: "gold" }}>✔ Bulk Supply</h3>
+      <p>All India Wholesale Distribution</p>
     </div>
-  );
-}
+
+    <div>
+      <h3 style={{ color: "gold" }}>✔ Premium Quality</h3>
+      <p>Metallic & Embroidery Threads</p>
+    </div>
+
+    <div>
+      <h3 style={{ color: "gold" }}>✔ Fast Dispatch</h3>
+      <p>Quick Order Processing</p>
+    </div>
+  </div>
+
+</section>
