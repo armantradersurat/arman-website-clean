@@ -1,4 +1,12 @@
 export default function App() {
+
+  const products = [
+    { name: "Jari", inStock: true },
+    { name: "Zari", inStock: false },
+    { name: "Embroidery Thread", inStock: true },
+    { name: "Textile Accessories", inStock: true }
+  ];
+
   return (
     <div style={{ fontFamily: "Arial, sans-serif" }}>
       
