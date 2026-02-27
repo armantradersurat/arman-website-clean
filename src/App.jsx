@@ -5,18 +5,18 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
  const products = [
-  { name: "Gold Jari 75 Denier", price: "₹1200/kg", inStock: true, image: "/images/jari1.jpg" },
-  { name: "Silver Zari Premium", price: "₹1500/kg", inStock: false, image: "/images/jari2.jpg" },
+  { name: "Gold Jari 75 Denier", price: "₹230/kg", inStock: true, image: "/images/jari1.jpg" },
+  { name: "Silver Zari Premium", price: "₹210/kg", inStock: false, image: "/images/jari2.jpg" },
   { name: "Embroidery Thread Metallic", price: "₹450/roll", inStock: true, image: "/images/jari3.jpg" },
 
-  { name: "Copper Metallic Jari", price: "₹1100/kg", inStock: true, image: "/images/jari4.jpg" },
-  { name: "Golden Zari Ultra Shine", price: "₹1700/kg", inStock: true, image: "/images/jari5.jpg" },
-  { name: "Silver Thread 100D", price: "₹980/kg", inStock: false, image: "/images/jari6.jpg" },
+  { name: "Copper Metallic Jari", price: "₹180/kg", inStock: true, image: "/images/jari4.jpg" },
+  { name: "Golden Zari Ultra Shine", price: "₹170/kg", inStock: true, image: "/images/jari5.jpg" },
+  { name: "Silver Thread 100D", price: "₹180/kg", inStock: false, image: "/images/jari6.jpg" },
 
-  { name: "Textile Zari Cone Pack", price: "₹2200/box", inStock: true, image: "/images/jari7.jpg" },
-  { name: "Premium Embroidery Roll", price: "₹600/roll", inStock: true, image: "/images/jari8.jpg" },
-  { name: "Heavy Work Metallic Thread", price: "₹1350/kg", inStock: true, image: "/images/jari9.jpg" },
-  { name: "Luxury Gold Finish Jari", price: "₹1900/kg", inStock: false, image: "/images/jari10.jpg" },
+  { name: "Textile Zari Cone Pack", price: "₹200/box", inStock: true, image: "/images/jari7.jpg" },
+  { name: "Premium Embroidery Roll", price: "₹210/roll", inStock: true, image: "/images/jari8.jpg" },
+  { name: "Heavy Work Metallic Thread", price: "₹235/kg", inStock: true, image: "/images/jari9.jpg" },
+  { name: "Luxury Gold Finish Jari", price: "₹215/kg", inStock: false, image: "/images/jari10.jpg" },
 ];
 
   return (
