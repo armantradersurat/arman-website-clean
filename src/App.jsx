@@ -1,49 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function App() {
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const products = [
+    {
+      id: 1,
+      name: "Gold Jari 75D",
+      price: "₹230/kg",
+      oldPrice: "₹260",
+      discount: "12% OFF",
+      img: "/images/jari1.jpg",
+      desc: "Premium gold jari for embroidery & textile use."
+    },
+    {
+      id: 2,
+      name: "Silver Zari Premium",
+      price: "₹210/kg",
+      oldPrice: "₹240",
+      discount: "13% OFF",
+      img: "/images/jari2.jpg",
+      desc: "High shine silver zari perfect for sarees."
+    },
+    {
+      id: 3,
+      name: "Copper Metallic Thread",
+      price: "₹180/kg",
+      oldPrice: "₹200",
+      discount: "10% OFF",
+      img: "/images/jari3.jpg",
+      desc: "Durable metallic thread for heavy work."
+    }
+  ];
+
   return (
     <div style={container}>
 
-      {/* NAVBAR */}
-      <nav style={navStyle}>
-        <h2 style={logoStyle}>Arman Trader</h2>
-        <div style={navLinks}>
-          <span>Home</span>
-          <span>About</span>
-          <span>Products</span>
-          <span>Contact</span>
-        </div>
-      </nav>
-
-      {/* HERO SECTION */}
-      <section style={heroSection}>
-        <div style={heroLeft}>
-          <h1 style={heroTitle}>Premium Jari & Zari Supplier</h1>
-          <p style={heroText}>
-            Wholesale Textile Materials | Fast Delivery Across India
-          </p>
-          <button style={primaryBtn}>View Products</button>
-        </div>
-
-        <div style={heroRight}>
-          <div style={imagePlaceholder}></div>
-        </div>
-      </section>
-
-      {/* TRUST BADGES */}
-      <section style={trustSection}>
-        <div style={trustBox}>
-          ⭐ Premium Quality
-        </div>
-        <div style={trustBox}>
-          🚚 Pan India Delivery
-        </div>
-        <div style={trustBox}>
-          💰 Best Wholesale Rates
-        </div>
-        <div style={trustBox}>
-          🏭 Surat Textile Expertise
-        </div>
+      {/* HERO */}
+      <section style={hero}>
+        <h1 style={heroTitle}>Premium Jari & Zari Supplier</h1>
+        <p>Wholesale Textile Materials | Fast Delivery Across India</p>
       </section>
 
       {/* PRODUCTS */}
@@ -51,44 +49,57 @@ export default function App() {
         <h2 style={sectionTitle}>Our Premium Products</h2>
 
         <div style={grid}>
-          {[
-            "Gold Jari 75D",
-            "Silver Zari Premium",
-            "Copper Metallic Thread",
-            "Ultra Shine Zari",
-            "Heavy Work Jari",
-            "Embroidery Roll Thread"
-          ].map((item, index) => (
-            <div key={index} style={card}>
-              <div style={cardImage}></div>
-              <h3>{item}</h3>
-              <p style={{ color: "#d4af37" }}>Best Wholesale Price</p>
-              <button style={secondaryBtn}>Order on WhatsApp</button>
+          {products.map(product => (
+            <div key={product.id} style={card}>
+
+              {/* Discount Badge */}
+              <div style={badge}>
+                🔥 {product.discount}
+              </div>
+
+              <div style={imageWrapper}>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  style={productImage}
+                  onClick={() => setSelectedProduct(product)}
+                />
+              </div>
+
+              <h3>{product.name}</h3>
+
+              <div>
+                <span style={oldPrice}>{product.oldPrice}</span>
+                <span style={price}>{product.price}</span>
+              </div>
+
+              <button style={whatsappBtn}>
+                <FaWhatsapp /> Order on WhatsApp
+              </button>
+
             </div>
           ))}
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
-      <section style={aboutSection}>
-        <h2 style={sectionTitle}>About Arman Trader</h2>
-        <p style={aboutText}>
-          Arman Trader is a trusted Jari & Zari supplier from Surat,
-          providing high-quality textile materials across Pan India.
-        </p>
-        <p style={aboutText}>
-          We offer a wide range of Gold Jari, Silver Zari, Metallic Threads
-          and Embroidery materials at competitive wholesale rates.
-        </p>
-        <p style={aboutText}>
-          Our products are known for shine, durability and finishing quality,
-          making them ideal for saree manufacturing, bridal wear and textile production.
-        </p>
-      </section>
-
-      <footer style={footer}>
-        © 2026 Arman Trader | Surat | Pan India Delivery
-      </footer>
+      {/* MODAL */}
+      {selectedProduct && (
+        <div style={modalOverlay} onClick={() => setSelectedProduct(null)}>
+          <div style={modalBox} onClick={(e) => e.stopPropagation()}>
+            <img
+              src={selectedProduct.img}
+              alt=""
+              style={{ width: "100%", borderRadius: "10px" }}
+            />
+            <h2>{selectedProduct.name}</h2>
+            <p>{selectedProduct.desc}</p>
+            <p style={price}>{selectedProduct.price}</p>
+            <button style={closeBtn} onClick={() => setSelectedProduct(null)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
@@ -98,120 +109,89 @@ export default function App() {
 
 const container = {
   fontFamily: "Poppins, sans-serif",
-  background: "#f5f7fa",
-  color: "#222"
+  background: "#f8f9fb"
 };
 
-const navStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  padding: "20px 8%",
-  background: "#ffffff",
-  boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
-};
-
-const navLinks = {
-  display: "flex",
-  gap: "25px",
-  cursor: "pointer"
-};
-
-const logoStyle = {
-  color: "#d4af37",
-  fontWeight: "bold"
-};
-
-const heroSection = {
-  display: "flex",
-  flexWrap: "wrap",
-  padding: "80px 8%",
-  alignItems: "center",
-  gap: "40px"
-};
-
-const heroLeft = {
-  flex: "1"
-};
-
-const heroRight = {
-  flex: "1"
+const hero = {
+  padding: "80px 10%",
+  textAlign: "center",
+  background: "linear-gradient(135deg,#fff,#f3f3f3)"
 };
 
 const heroTitle = {
-  fontSize: "40px",
-  marginBottom: "15px"
-};
-
-const heroText = {
-  fontSize: "18px",
-  marginBottom: "25px",
-  color: "#555"
-};
-
-const primaryBtn = {
-  padding: "12px 20px",
-  background: "#d4af37",
-  border: "none",
-  borderRadius: "6px",
-  color: "#fff",
-  cursor: "pointer"
-};
-
-const imagePlaceholder = {
-  height: "300px",
-  background: "#ddd",
-  borderRadius: "10px"
-};
-
-const trustSection = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-  gap: "20px",
-  padding: "40px 8%",
-  background: "#ffffff"
-};
-
-const trustBox = {
-  background: "#f9f9f9",
-  padding: "20px",
-  textAlign: "center",
-  borderRadius: "8px",
-  fontWeight: "500"
+  fontSize: "38px",
+  color: "#d4af37"
 };
 
 const productSection = {
-  padding: "60px 8%"
+  padding: "60px 10%"
 };
 
 const sectionTitle = {
   textAlign: "center",
-  marginBottom: "40px"
+  marginBottom: "40px",
+  color: "#d4af37"
 };
 
 const grid = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
-  gap: "25px"
+  gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+  gap: "30px"
 };
 
 const card = {
-  background: "#ffffff",
+  background: "#fff",
   padding: "20px",
-  borderRadius: "10px",
-  boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
+  borderRadius: "12px",
+  boxShadow: "0 5px 20px rgba(0,0,0,0.08)",
+  position: "relative",
   textAlign: "center"
 };
 
-const cardImage = {
-  height: "180px",
-  background: "#ddd",
-  borderRadius: "8px",
-  marginBottom: "15px"
+const badge = {
+  position: "absolute",
+  top: "15px",
+  left: "15px",
+  background: "red",
+  color: "#fff",
+  padding: "5px 10px",
+  fontSize: "12px",
+  borderRadius: "20px"
 };
 
-const secondaryBtn = {
-  marginTop: "10px",
-  padding: "10px",
+const imageWrapper = {
+  overflow: "hidden",
+  borderRadius: "10px"
+};
+
+const productImage = {
+  width: "100%",
+  height: "220px",
+  objectFit: "cover",
+  transition: "0.4s ease",
+  cursor: "pointer"
+};
+
+/* Zoom Effect */
+productImage[":hover"] = {
+  transform: "scale(1.1)"
+};
+
+const oldPrice = {
+  textDecoration: "line-through",
+  color: "#888",
+  marginRight: "10px"
+};
+
+const price = {
+  color: "#d4af37",
+  fontWeight: "bold",
+  fontSize: "18px"
+};
+
+const whatsappBtn = {
+  marginTop: "15px",
+  padding: "10px 15px",
   background: "#25D366",
   border: "none",
   borderRadius: "6px",
@@ -219,21 +199,32 @@ const secondaryBtn = {
   cursor: "pointer"
 };
 
-const aboutSection = {
-  padding: "60px 8%",
-  background: "#ffffff"
+const modalOverlay = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "rgba(0,0,0,0.7)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
 };
 
-const aboutText = {
-  maxWidth: "800px",
-  margin: "15px auto",
-  lineHeight: "1.8",
-  textAlign: "center"
-};
-
-const footer = {
+const modalBox = {
+  background: "#fff",
   padding: "20px",
-  textAlign: "center",
+  borderRadius: "10px",
+  width: "90%",
+  maxWidth: "500px"
+};
+
+const closeBtn = {
+  marginTop: "15px",
+  padding: "10px",
   background: "#111",
-  color: "#fff"
+  color: "#fff",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer"
 };
