@@ -1,30 +1,92 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function App() {
-
-  const [page, setPage] = useState("home");
-
   return (
     <div style={container}>
 
       {/* NAVBAR */}
       <nav style={navStyle}>
         <h2 style={logoStyle}>Arman Trader</h2>
-
         <div style={navLinks}>
-          <span onClick={() => setPage("home")}>Home</span>
-          <span onClick={() => setPage("about")}>About</span>
-          <span onClick={() => setPage("products")}>Products</span>
-          <span onClick={() => setPage("contact")}>Contact</span>
+          <span>Home</span>
+          <span>About</span>
+          <span>Products</span>
+          <span>Contact</span>
         </div>
       </nav>
 
-      {page === "home" && <Home />}
-      {page === "about" && <About />}
-      {page === "products" && <Products />}
-      {page === "contact" && <Contact />}
+      {/* HERO SECTION */}
+      <section style={heroSection}>
+        <div style={heroLeft}>
+          <h1 style={heroTitle}>Premium Jari & Zari Supplier</h1>
+          <p style={heroText}>
+            Wholesale Textile Materials | Fast Delivery Across India
+          </p>
+          <button style={primaryBtn}>View Products</button>
+        </div>
 
-      <footer style={footerStyle}>
+        <div style={heroRight}>
+          <div style={imagePlaceholder}></div>
+        </div>
+      </section>
+
+      {/* TRUST BADGES */}
+      <section style={trustSection}>
+        <div style={trustBox}>
+          ⭐ Premium Quality
+        </div>
+        <div style={trustBox}>
+          🚚 Pan India Delivery
+        </div>
+        <div style={trustBox}>
+          💰 Best Wholesale Rates
+        </div>
+        <div style={trustBox}>
+          🏭 Surat Textile Expertise
+        </div>
+      </section>
+
+      {/* PRODUCTS */}
+      <section style={productSection}>
+        <h2 style={sectionTitle}>Our Premium Products</h2>
+
+        <div style={grid}>
+          {[
+            "Gold Jari 75D",
+            "Silver Zari Premium",
+            "Copper Metallic Thread",
+            "Ultra Shine Zari",
+            "Heavy Work Jari",
+            "Embroidery Roll Thread"
+          ].map((item, index) => (
+            <div key={index} style={card}>
+              <div style={cardImage}></div>
+              <h3>{item}</h3>
+              <p style={{ color: "#d4af37" }}>Best Wholesale Price</p>
+              <button style={secondaryBtn}>Order on WhatsApp</button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ABOUT SECTION */}
+      <section style={aboutSection}>
+        <h2 style={sectionTitle}>About Arman Trader</h2>
+        <p style={aboutText}>
+          Arman Trader is a trusted Jari & Zari supplier from Surat,
+          providing high-quality textile materials across Pan India.
+        </p>
+        <p style={aboutText}>
+          We offer a wide range of Gold Jari, Silver Zari, Metallic Threads
+          and Embroidery materials at competitive wholesale rates.
+        </p>
+        <p style={aboutText}>
+          Our products are known for shine, durability and finishing quality,
+          making them ideal for saree manufacturing, bridal wear and textile production.
+        </p>
+      </section>
+
+      <footer style={footer}>
         © 2026 Arman Trader | Surat | Pan India Delivery
       </footer>
 
@@ -32,125 +94,20 @@ export default function App() {
   );
 }
 
-/* ================= HOME ================= */
-
-function Home() {
-  return (
-    <>
-      <section style={heroStyle}>
-        <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
-          Arman Trader
-        </h1>
-
-        <h2 style={metallicText}>
-          Premium Jari & Zari Supplier
-        </h2>
-
-        <p style={{ marginTop: "10px", color: "#ccc" }}>
-          Wholesale Textile Materials | Fast Delivery Across India
-        </p>
-      </section>
-
-      <Products />
-    </>
-  );
-}
-
-/* ================= ABOUT ================= */
-
-function About() {
-  return (
-    <section style={sectionStyle}>
-      <h2 style={goldHeading}>About Arman Trader</h2>
-
-      <p style={aboutText}>
-        Arman Trader is a trusted Jari & Zari supplier based in Surat,
-        delivering premium quality textile materials across Pan India.
-      </p>
-
-      <p style={aboutText}>
-        We provide Gold Jari, Silver Zari, Metallic Threads,
-        Embroidery Threads and many more varieties at competitive wholesale rates.
-      </p>
-
-      <p style={aboutText}>
-        Our products are known for shine, durability and smooth finishing,
-        making them ideal for saree manufacturing, bridal fabrics,
-        embroidery work and textile production.
-      </p>
-
-      <p style={aboutText}>
-        We ensure fast dispatch, reliable service and best pricing
-        for bulk buyers across India.
-      </p>
-    </section>
-  );
-}
-
-/* ================= PRODUCTS ================= */
-
-function Products() {
-
-  const products = [
-    "Gold Jari 75D",
-    "Silver Zari Premium",
-    "Copper Metallic Thread",
-    "Ultra Shine Zari",
-    "Heavy Work Jari",
-    "Embroidery Roll Thread",
-    "Luxury Finish Jari",
-    "Designer Gold Jari",
-    "Export Quality Zari",
-    "Premium Metallic Thread"
-  ];
-
-  return (
-    <section style={sectionStyle}>
-      <h2 style={goldHeading}>Our Premium Products</h2>
-
-      <div style={gridStyle}>
-        {products.map((item, index) => (
-          <div key={index} style={cardStyle}>
-            <div style={imagePlaceholder}></div>
-            <h3>{item}</h3>
-            <p style={{ color: "#d4af37" }}>Best Wholesale Price</p>
-            <button style={btnStyle}>Order on WhatsApp</button>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ================= CONTACT ================= */
-
-function Contact() {
-  return (
-    <section style={sectionStyle}>
-      <h2 style={goldHeading}>Contact Us</h2>
-
-      <p style={aboutText}>📍 Surat, Gujarat, India</p>
-      <p style={aboutText}>📞 +91 9625686843</p>
-      <p style={aboutText}>📦 Pan India Delivery Available</p>
-    </section>
-  );
-}
-
-/* ================= STYLES ================= */
+/* ===== STYLES ===== */
 
 const container = {
   fontFamily: "Poppins, sans-serif",
-  background: "linear-gradient(135deg,#0f0f0f,#1a1a1a,#141414)",
-  color: "#ffffff",
-  minHeight: "100vh"
+  background: "#f5f7fa",
+  color: "#222"
 };
 
 const navStyle = {
-  padding: "15px 5%",
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center",
-  borderBottom: "1px solid #333"
+  padding: "20px 8%",
+  background: "#ffffff",
+  boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
 };
 
 const navLinks = {
@@ -160,68 +117,99 @@ const navLinks = {
 };
 
 const logoStyle = {
-  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
+  color: "#d4af37",
   fontWeight: "bold"
 };
 
-const heroStyle = {
-  padding: "80px 5%",
-  textAlign: "center",
-  background: "linear-gradient(90deg,#111,#1c1c1c,#111)",
-  borderBottom: "1px solid #333"
+const heroSection = {
+  display: "flex",
+  flexWrap: "wrap",
+  padding: "80px 8%",
+  alignItems: "center",
+  gap: "40px"
 };
 
-const metallicText = {
-  fontSize: "34px",
-  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent"
+const heroLeft = {
+  flex: "1"
 };
 
-const sectionStyle = {
-  padding: "60px 8%",
-  textAlign: "center"
+const heroRight = {
+  flex: "1"
 };
 
-const goldHeading = {
-  fontSize: "28px",
-  marginBottom: "40px",
-  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent"
-};
-
-const aboutText = {
-  maxWidth: "800px",
-  margin: "15px auto",
-  lineHeight: "1.8",
-  color: "#ccc"
-};
-
-const gridStyle = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-  gap: "25px"
-};
-
-const cardStyle = {
-  background: "#1a1a1a",
-  padding: "20px",
-  borderRadius: "15px",
-  border: "1px solid #333",
-  transition: "0.3s",
-};
-
-const imagePlaceholder = {
-  height: "180px",
-  background: "#333",
-  borderRadius: "10px",
+const heroTitle = {
+  fontSize: "40px",
   marginBottom: "15px"
 };
 
-const btnStyle = {
+const heroText = {
+  fontSize: "18px",
+  marginBottom: "25px",
+  color: "#555"
+};
+
+const primaryBtn = {
+  padding: "12px 20px",
+  background: "#d4af37",
+  border: "none",
+  borderRadius: "6px",
+  color: "#fff",
+  cursor: "pointer"
+};
+
+const imagePlaceholder = {
+  height: "300px",
+  background: "#ddd",
+  borderRadius: "10px"
+};
+
+const trustSection = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
+  gap: "20px",
+  padding: "40px 8%",
+  background: "#ffffff"
+};
+
+const trustBox = {
+  background: "#f9f9f9",
+  padding: "20px",
+  textAlign: "center",
+  borderRadius: "8px",
+  fontWeight: "500"
+};
+
+const productSection = {
+  padding: "60px 8%"
+};
+
+const sectionTitle = {
+  textAlign: "center",
+  marginBottom: "40px"
+};
+
+const grid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
+  gap: "25px"
+};
+
+const card = {
+  background: "#ffffff",
+  padding: "20px",
+  borderRadius: "10px",
+  boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
+  textAlign: "center"
+};
+
+const cardImage = {
+  height: "180px",
+  background: "#ddd",
+  borderRadius: "8px",
+  marginBottom: "15px"
+};
+
+const secondaryBtn = {
   marginTop: "10px",
   padding: "10px",
   background: "#25D366",
@@ -231,10 +219,21 @@ const btnStyle = {
   cursor: "pointer"
 };
 
-const footerStyle = {
+const aboutSection = {
+  padding: "60px 8%",
+  background: "#ffffff"
+};
+
+const aboutText = {
+  maxWidth: "800px",
+  margin: "15px auto",
+  lineHeight: "1.8",
+  textAlign: "center"
+};
+
+const footer = {
   padding: "20px",
   textAlign: "center",
-  borderTop: "1px solid #333",
-  marginTop: "40px",
-  color: "#aaa"
+  background: "#111",
+  color: "#fff"
 };
