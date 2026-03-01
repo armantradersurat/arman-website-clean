@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
 
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
+
   const [products, setProducts] = useState([
-    { id: 1, name: "Gold Jari 75D", price: "₹230/kg", category: "Jari", image: "/images/jari1.jpg", stock: true, desc: "High shine premium gold jari thread for textile and embroidery use." },
-    { id: 2, name: "Copper Metallic Jari", price: "₹180/kg", category: "Jari", image: "/images/jari2.jpg", stock: true, desc: "Durable copper metallic jari suitable for heavy fabric work." },
-    { id: 3, name: "Silver Zari Premium", price: "₹210/kg", category: "Zari", image: "/images/jari3.jpg", stock: false, desc: "Premium silver zari for embroidery and weaving industry." },
-    { id: 4, name: "Golden Zari Ultra Shine", price: "₹170/kg", category: "Zari", image: "/images/jari4.jpg", stock: true, desc: "Ultra shine zari used in sarees and bridal fabrics." },
-    { id: 5, name: "Embroidery Thread Metallic", price: "₹450/roll", category: "Thread", image: "/images/jari5.jpg", stock: true, desc: "Metallic embroidery thread for decorative stitching." },
-    { id: 6, name: "Heavy Work Metallic Thread", price: "₹235/kg", category: "Thread", image: "/images/jari6.jpg", stock: true, desc: "Strong metallic thread for heavy embroidery designs." },
+    { id: 1, name: "Gold Jari 75D", price: "₹230/kg", image: "/images/jari1.jpg", stock: true, desc: "Premium gold jari for embroidery use." },
+    { id: 2, name: "Silver Zari Premium", price: "₹210/kg", image: "/images/jari2.jpg", stock: true, desc: "High shine silver zari for sarees." },
+    { id: 3, name: "Copper Metallic Thread", price: "₹180/kg", image: "/images/jari3.jpg", stock: false, desc: "Durable metallic thread." },
+    { id: 4, name: "Ultra Shine Zari", price: "₹260/kg", image: "/images/jari4.jpg", stock: true, desc: "Luxury zari for bridal fabrics." },
+    { id: 5, name: "Heavy Work Jari", price: "₹250/kg", image: "/images/jari5.jpg", stock: true, desc: "Strong metallic jari." },
+    { id: 6, name: "Embroidery Roll Thread", price: "₹450/roll", image: "/images/jari6.jpg", stock: true, desc: "Smooth metallic embroidery thread." },
   ]);
 
   const toggleStock = (id) => {
@@ -19,28 +25,44 @@ export default function App() {
   };
 
   return (
-    <div style={{ fontFamily: "Poppins, sans-serif" }}>
-
-      {/* SEO Title */}
-      <title>Arman Trader | Premium Jari & Zari Supplier | Pan India Delivery</title>
+    <div style={{ fontFamily: "Poppins, sans-serif", scrollBehavior: "smooth" }}>
 
       {/* NAVBAR */}
       <nav style={navStyle}>
         <h2 style={logoStyle}>Arman Trader</h2>
-        <div>Surat | Pan India Delivery</div>
+        <div style={{ color: "#fff" }}>Surat | Pan India Delivery</div>
       </nav>
 
-      {/* HERO */}
+      {/* HERO SECTION */}
       <section style={heroStyle}>
-        <h1 style={metallicText}>Premium Jari & Zari Supplier</h1>
-        <p>Wholesale Textile Materials | Fast Dispatch Across India</p>
+        <div style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(40px)",
+          transition: "all 1s ease"
+        }}>
+          <h1 style={metallicText}>Premium Jari & Zari Supplier</h1>
+          <p>Wholesale Textile Materials | Fast Delivery Across India</p>
+        </div>
       </section>
 
-      {/* PRODUCTS GRID */}
+      {/* FEATURED PRODUCT SLIDER */}
+      <section style={sliderSection}>
+        <h2 style={{ color: "#d4af37" }}>Featured Products</h2>
+        <div style={sliderContainer}>
+          {products.slice(0, 4).map(product => (
+            <div key={product.id} style={sliderCard}>
+              <img src={product.image} alt="" style={{ width: "100%", borderRadius: "10px" }} />
+              <h4>{product.name}</h4>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PRODUCT GRID */}
       <section style={gridStyle}>
         {products.map(product => (
           <div key={product.id} style={cardStyle(product.stock)}>
-            
+
             <img
               src={product.image}
               alt={product.name}
@@ -50,6 +72,7 @@ export default function App() {
 
             <h3>{product.name}</h3>
             <p style={{ color: "#d4af37" }}>{product.price}</p>
+
             <p style={{ color: product.stock ? "#4ade80" : "red" }}>
               {product.stock ? "In Stock" : "Out of Stock"}
             </p>
@@ -65,7 +88,6 @@ export default function App() {
               </a>
             )}
 
-            {/* ADMIN STOCK TOGGLE */}
             <button onClick={() => toggleStock(product.id)} style={adminBtn}>
               Toggle Stock
             </button>
@@ -74,7 +96,7 @@ export default function App() {
         ))}
       </section>
 
-      {/* PRODUCT DETAIL MODAL */}
+      {/* PRODUCT MODAL */}
       {selectedProduct && (
         <div style={modalOverlay} onClick={() => setSelectedProduct(null)}>
           <div style={modalBox} onClick={(e) => e.stopPropagation()}>
@@ -87,6 +109,16 @@ export default function App() {
         </div>
       )}
 
+      {/* FLOATING WHATSAPP */}
+      <a
+        href="https://wa.me/919625686843"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={floatingBtn}
+      >
+        💬
+      </a>
+
       {/* FOOTER */}
       <footer style={footerStyle}>
         © 2026 Arman Trader | Surat | Pan India Delivery
@@ -96,14 +128,14 @@ export default function App() {
   );
 }
 
-/* STYLES */
+/* ===== STYLES ===== */
 
 const navStyle = {
   background: "#0d1b2a",
-  color: "#fff",
   padding: "15px 5%",
   display: "flex",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
+  alignItems: "center"
 };
 
 const logoStyle = {
@@ -113,17 +145,38 @@ const logoStyle = {
 };
 
 const heroStyle = {
-  padding: "80px 5%",
+  padding: "120px 5%",
   textAlign: "center",
-  background: "#111",
+  background: "linear-gradient(135deg,#000,#1c1c1c,#000)",
   color: "#fff"
 };
 
 const metallicText = {
-  fontSize: "40px",
+  fontSize: "42px",
   background: "linear-gradient(90deg,#d4af37,#ffd700,#b8860b)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent"
+};
+
+const sliderSection = {
+  padding: "60px 5%",
+  background: "#111",
+  textAlign: "center",
+  color: "#fff"
+};
+
+const sliderContainer = {
+  display: "flex",
+  overflowX: "auto",
+  gap: "20px",
+  paddingTop: "20px"
+};
+
+const sliderCard = {
+  minWidth: "250px",
+  background: "#0d1b2a",
+  padding: "15px",
+  borderRadius: "12px"
 };
 
 const gridStyle = {
@@ -176,7 +229,7 @@ const modalOverlay = {
   left: 0,
   width: "100%",
   height: "100%",
-  background: "rgba(0,0,0,0.8)",
+  background: "rgba(0,0,0,0.85)",
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
@@ -198,6 +251,19 @@ const closeBtn = {
   border: "none",
   borderRadius: "5px",
   cursor: "pointer"
+};
+
+const floatingBtn = {
+  position: "fixed",
+  bottom: "20px",
+  right: "20px",
+  background: "#25D366",
+  color: "#fff",
+  padding: "15px",
+  borderRadius: "50%",
+  fontSize: "22px",
+  textDecoration: "none",
+  boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
 };
 
 const footerStyle = {
