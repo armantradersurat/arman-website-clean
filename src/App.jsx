@@ -1,277 +1,162 @@
 import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push, onValue, remove } from "firebase/database";
+import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "firebase/storage";
+
+/* 🔥 PASTE YOUR FIREBASE CONFIG HERE */
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  databaseURL: "YOUR_DB_URL",
+  projectId: "YOUR_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const storage = getStorage(app);
 
 export default function App() {
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
+  const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({
+    name: "",
+    price: "",
+    oldPrice: "",
+    stockQty: "",
+    image: null
+  });
 
+  /* 🔥 FETCH PRODUCTS FROM DATABASE */
   useEffect(() => {
-    setVisible(true);
+    const productsRef = ref(db, "products");
+    onValue(productsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const list = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        setProducts(list);
+      }
+    });
   }, []);
 
-  const [products, setProducts] = useState([
-    { id: 1, name: "Gold Jari 75D", category: "Jari", oldPrice: 260, price: 230, stockQty: 5, image: "/images/jari1.jpg" },
-    { id: 2, name: "Silver Zari Premium", category: "Zari", oldPrice: 240, price: 210, stockQty: 2, image: "/images/jari2.jpg" },
-    { id: 3, name: "Copper Metallic Thread", category: "Thread", oldPrice: 200, price: 180, stockQty: 0, image: "/images/jari3.jpg" },
-    { id: 4, name: "Ultra Shine Zari", category: "Zari", oldPrice: 290, price: 260, stockQty: 8, image: "/images/jari4.jpg" },
-  ]);
+  /* 🔥 ADD PRODUCT */
+  const addProduct = async () => {
+
+    if (!newProduct.image) return alert("Upload Image");
+
+    const imageRef = sRef(storage, "images/" + newProduct.image.name);
+    await uploadBytes(imageRef, newProduct.image);
+    const imageURL = await getDownloadURL(imageRef);
+
+    push(ref(db, "products"), {
+      name: newProduct.name,
+      price: Number(newProduct.price),
+      oldPrice: Number(newProduct.oldPrice),
+      stockQty: Number(newProduct.stockQty),
+      image: imageURL
+    });
+
+    setNewProduct({
+      name: "",
+      price: "",
+      oldPrice: "",
+      stockQty: "",
+      image: null
+    });
+  };
+
+  /* 🔥 DELETE PRODUCT */
+  const deleteProduct = (id) => {
+    remove(ref(db, "products/" + id));
+  };
 
   const calculateDiscount = (oldPrice, price) =>
     Math.round(((oldPrice - price) / oldPrice) * 100);
 
-  const updatePrice = (id, newPrice) => {
-    setProducts(products.map(p =>
-      p.id === id ? { ...p, price: Number(newPrice) } : p
-    ));
-  };
-
-  const filteredProducts = products.filter(p =>
-    (category === "All" || p.category === category) &&
-    p.name.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
-    <div style={{ fontFamily: "Poppins, sans-serif", background: "#f8f9fa" }}>
+    <div style={{ background: "#111", color: "#fff", minHeight: "100vh", padding: "40px" }}>
 
-      {/* NAVBAR */}
-      <nav style={navStyle}>
-        <h2 style={logoStyle}>Arman Trader</h2>
-        <div>Surat | Pan India Delivery</div>
-      </nav>
+      <h1 style={{ color: "#FFD700" }}>Arman Trader – Admin Panel</h1>
 
-      {/* HERO */}
-      <section style={heroStyle}>
-        <div style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(30px)",
-          transition: "1s ease"
-        }}>
-          <h1 style={metallicText}>Premium Jari & Zari Supplier</h1>
-          <p>Wholesale Textile Materials | Fast Delivery Across India</p>
-        </div>
-      </section>
+      {/* 🔥 ADD PRODUCT PANEL */}
+      <div style={{ background: "#222", padding: "20px", borderRadius: "10px", marginBottom: "40px" }}>
 
-      <h2 style={goldHeading}>Our Premium Products</h2>
+        <h2 style={{ color: "#FFD700" }}>Add New Product</h2>
 
-      {/* SEARCH + FILTER */}
-      <div style={filterContainer}>
-        <input
-          type="text"
-          placeholder="Search product..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={searchStyle}
+        <input placeholder="Name"
+          value={newProduct.name}
+          onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
         />
 
-        <select value={category} onChange={(e) => setCategory(e.target.value)} style={selectStyle}>
-          <option value="All">All</option>
-          <option value="Jari">Jari</option>
-          <option value="Zari">Zari</option>
-          <option value="Thread">Thread</option>
-        </select>
+        <input placeholder="Old Price"
+          value={newProduct.oldPrice}
+          onChange={e => setNewProduct({ ...newProduct, oldPrice: e.target.value })}
+        />
+
+        <input placeholder="Price"
+          value={newProduct.price}
+          onChange={e => setNewProduct({ ...newProduct, price: e.target.value })}
+        />
+
+        <input placeholder="Stock Quantity"
+          value={newProduct.stockQty}
+          onChange={e => setNewProduct({ ...newProduct, stockQty: e.target.value })}
+        />
+
+        <input type="file"
+          onChange={e => setNewProduct({ ...newProduct, image: e.target.files[0] })}
+        />
+
+        <button onClick={addProduct} style={{ background: "green", color: "#fff", padding: "10px", marginTop: "10px" }}>
+          Add Product
+        </button>
+
       </div>
 
-      {/* PRODUCT GRID */}
-      <section style={gridStyle}>
-        {filteredProducts.map(product => (
-          <div key={product.id} style={cardStyle}>
+      {/* 🔥 PRODUCT LIST */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(250px,1fr))",
+        gap: "20px"
+      }}>
+        {products.map(product => (
+          <div key={product.id} style={{ background: "#222", padding: "15px", borderRadius: "10px" }}>
 
-            <div style={{ position: "relative" }}>
-              <img src={product.image} alt="" style={imgStyle} />
-
-              {product.stockQty > 0 && (
-                <div style={discountTag}>
-                  🔥 {calculateDiscount(product.oldPrice, product.price)}% OFF
-                </div>
-              )}
-
-              {product.stockQty > 0 && product.stockQty <= 3 && (
-                <div style={limitedTag}>⚠ Limited Stock</div>
-              )}
-            </div>
+            <img src={product.image} style={{ width: "100%", height: "200px", objectFit: "cover" }} />
 
             <h3>{product.name}</h3>
 
             <p>
-              <span style={oldPriceStyle}>₹{product.oldPrice}</span>
-              <span style={newPriceStyle}> ₹{product.price}</span>
+              <span style={{ textDecoration: "line-through", color: "gray" }}>
+                ₹{product.oldPrice}
+              </span>
+              <span style={{ color: "#FFD700", marginLeft: "10px" }}>
+                ₹{product.price}
+              </span>
             </p>
 
-            <p style={{ color: product.stockQty > 0 ? "green" : "red" }}>
-              {product.stockQty > 0 ? `In Stock (${product.stockQty})` : "Out of Stock"}
+            <p>Stock: {product.stockQty}</p>
+
+            <p style={{ color: "red" }}>
+              🔥 {calculateDiscount(product.oldPrice, product.price)}% OFF
             </p>
 
-            {/* ADMIN PRICE EDIT */}
-            <input
-              type="number"
-              value={product.price}
-              onChange={(e) => updatePrice(product.id, e.target.value)}
-              style={adminInput}
-            />
-
-            {product.stockQty > 0 && (
-              <a
-                href={`https://wa.me/919625686843?text=Hello I want ${product.name}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={waBtn}
-              >
-                Order on WhatsApp
-              </a>
-            )}
+            <button
+              onClick={() => deleteProduct(product.id)}
+              style={{ background: "red", color: "#fff", padding: "8px" }}
+            >
+              Delete
+            </button>
 
           </div>
         ))}
-      </section>
-
-      <footer style={footerStyle}>
-        © 2026 Arman Trader | Surat | Pan India Delivery
-      </footer>
+      </div>
 
     </div>
   );
 }
-
-/* STYLES */
-
-const navStyle = {
-  background: "#ffffff",
-  padding: "15px 5%",
-  display: "flex",
-  justifyContent: "space-between",
-  boxShadow: "0 2px 10px rgba(0,0,0,0.1)"
-};
-
-const logoStyle = {
-  background: "linear-gradient(90deg,#d4af37,#ffd700,#b8860b)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  fontWeight: "bold"
-};
-
-const heroStyle = {
-  padding: "100px 5%",
-  textAlign: "center",
-  background: "linear-gradient(135deg,#ffffff,#f1f3f5)"
-};
-
-const metallicText = {
-  fontSize: "42px",
-  background: "linear-gradient(90deg,#d4af37,#ffd700,#b8860b)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent"
-};
-
-const goldHeading = {
-  textAlign: "center",
-  fontSize: "30px",
-  margin: "60px 0 40px",
-  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  fontWeight: "bold"
-};
-
-const filterContainer = {
-  display: "flex",
-  justifyContent: "center",
-  gap: "20px",
-  marginBottom: "40px",
-  flexWrap: "wrap"
-};
-
-const searchStyle = {
-  padding: "10px",
-  borderRadius: "6px",
-  border: "1px solid #ccc",
-  width: "220px"
-};
-
-const selectStyle = {
-  padding: "10px",
-  borderRadius: "6px",
-  border: "1px solid #ccc"
-};
-
-const gridStyle = {
-  padding: "0 5% 60px",
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-  gap: "25px"
-};
-
-const cardStyle = {
-  background: "#ffffff",
-  padding: "20px",
-  borderRadius: "15px",
-  boxShadow: "0 8px 25px rgba(0,0,0,0.08)"
-};
-
-const imgStyle = {
-  width: "100%",
-  height: "220px",
-  objectFit: "cover",
-  borderRadius: "10px"
-};
-
-const discountTag = {
-  position: "absolute",
-  top: "10px",
-  left: "10px",
-  background: "red",
-  color: "#fff",
-  padding: "5px 10px",
-  borderRadius: "20px",
-  fontSize: "12px"
-};
-
-const limitedTag = {
-  position: "absolute",
-  bottom: "10px",
-  left: "10px",
-  background: "orange",
-  color: "#fff",
-  padding: "5px 10px",
-  borderRadius: "20px",
-  fontSize: "12px"
-};
-
-const oldPriceStyle = {
-  textDecoration: "line-through",
-  color: "gray",
-  marginRight: "8px"
-};
-
-const newPriceStyle = {
-  color: "#d4af37",
-  fontWeight: "bold",
-  fontSize: "18px"
-};
-
-const adminInput = {
-  width: "100%",
-  padding: "6px",
-  marginTop: "8px",
-  borderRadius: "6px",
-  border: "1px solid #ddd"
-};
-
-const waBtn = {
-  display: "block",
-  marginTop: "10px",
-  padding: "10px",
-  background: "#25D366",
-  color: "#fff",
-  textDecoration: "none",
-  borderRadius: "6px",
-  textAlign: "center"
-};
-
-const footerStyle = {
-  background: "#ffffff",
-  padding: "20px",
-  textAlign: "center",
-  borderTop: "1px solid #eee"
-};
