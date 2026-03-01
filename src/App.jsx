@@ -18,14 +18,8 @@ export default function App() {
     { id: 6, name: "Embroidery Roll Thread", price: "₹450/roll", image: "/images/jari6.jpg", stock: true, desc: "Smooth metallic embroidery thread." },
   ]);
 
-  const toggleStock = (id) => {
-    setProducts(products.map(p =>
-      p.id === id ? { ...p, stock: !p.stock } : p
-    ));
-  };
-
   return (
-    <div style={{ fontFamily: "Poppins, sans-serif", scrollBehavior: "smooth" }}>
+    <div style={{ fontFamily: "Poppins, sans-serif" }}>
 
       {/* NAVBAR */}
       <nav style={navStyle}>
@@ -33,7 +27,7 @@ export default function App() {
         <div style={{ color: "#fff" }}>Surat | Pan India Delivery</div>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section style={heroStyle}>
         <div style={{
           opacity: visible ? 1 : 0,
@@ -45,30 +39,28 @@ export default function App() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCT SLIDER */}
-      <section style={sliderSection}>
-        <h2 style={{ color: "#d4af37" }}>Featured Products</h2>
-        <div style={sliderContainer}>
-          {products.slice(0, 4).map(product => (
-            <div key={product.id} style={sliderCard}>
-              <img src={product.image} alt="" style={{ width: "100%", borderRadius: "10px" }} />
-              <h4>{product.name}</h4>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* GOLDEN HEADING */}
+      <h2 style={goldHeading}>Our Premium Products</h2>
 
       {/* PRODUCT GRID */}
       <section style={gridStyle}>
         {products.map(product => (
           <div key={product.id} style={cardStyle(product.stock)}>
 
-            <img
-              src={product.image}
-              alt={product.name}
-              style={imgStyle}
-              onClick={() => setSelectedProduct(product)}
-            />
+            <div style={{ position: "relative" }}>
+              <img
+                src={product.image}
+                alt={product.name}
+                style={imgStyle}
+                onClick={() => setSelectedProduct(product)}
+              />
+
+              {product.stock && (
+                <div style={discountTag}>
+                  🔥 10% OFF
+                </div>
+              )}
+            </div>
 
             <h3>{product.name}</h3>
             <p style={{ color: "#d4af37" }}>{product.price}</p>
@@ -87,10 +79,6 @@ export default function App() {
                 Order on WhatsApp
               </a>
             )}
-
-            <button onClick={() => toggleStock(product.id)} style={adminBtn}>
-              Toggle Stock
-            </button>
 
           </div>
         ))}
@@ -130,6 +118,29 @@ export default function App() {
 
 /* ===== STYLES ===== */
 
+const goldHeading = {
+  textAlign: "center",
+  fontSize: "30px",
+  marginTop: "60px",
+  marginBottom: "40px",
+  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  fontWeight: "bold"
+};
+
+const discountTag = {
+  position: "absolute",
+  top: "10px",
+  left: "10px",
+  background: "linear-gradient(45deg,#ff0000,#ff7300)",
+  color: "#fff",
+  padding: "5px 12px",
+  fontSize: "12px",
+  fontWeight: "bold",
+  borderRadius: "20px"
+};
+
 const navStyle = {
   background: "#0d1b2a",
   padding: "15px 5%",
@@ -158,69 +169,40 @@ const metallicText = {
   WebkitTextFillColor: "transparent"
 };
 
-const sliderSection = {
-  padding: "60px 5%",
-  background: "#111",
-  textAlign: "center",
-  color: "#fff"
-};
-
-const sliderContainer = {
-  display: "flex",
-  overflowX: "auto",
-  gap: "20px",
-  paddingTop: "20px"
-};
-
-const sliderCard = {
-  minWidth: "250px",
-  background: "#0d1b2a",
-  padding: "15px",
-  borderRadius: "12px"
-};
-
 const gridStyle = {
-  padding: "40px 5%",
+  padding: "0 5% 60px",
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
   gap: "25px"
 };
 
 const cardStyle = (stock) => ({
   background: "#0d1b2a",
   padding: "20px",
-  borderRadius: "12px",
+  borderRadius: "15px",
   border: stock ? "1px solid #d4af37" : "1px solid red",
-  color: "#fff"
+  color: "#fff",
+  boxShadow: "0 8px 25px rgba(0,0,0,0.4)",
+  transition: "0.3s ease"
 });
 
 const imgStyle = {
   width: "100%",
-  height: "200px",
+  height: "220px",
   objectFit: "cover",
-  borderRadius: "8px",
+  borderRadius: "10px",
   cursor: "pointer"
 };
 
 const waBtn = {
   display: "block",
-  marginTop: "10px",
+  marginTop: "12px",
   padding: "10px",
   background: "#25D366",
   color: "#fff",
   textDecoration: "none",
   borderRadius: "6px",
   textAlign: "center"
-};
-
-const adminBtn = {
-  marginTop: "10px",
-  padding: "6px",
-  background: "#444",
-  color: "#fff",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer"
 };
 
 const modalOverlay = {
