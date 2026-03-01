@@ -19,7 +19,6 @@ export default function App() {
         </div>
       </nav>
 
-      {/* PAGE SWITCH */}
       {page === "home" && <Home />}
       {page === "about" && <About />}
       {page === "products" && <Products />}
@@ -37,13 +36,23 @@ export default function App() {
 
 function Home() {
   return (
-    <section style={heroStyle}>
-      <h1 style={mainTitle}>Arman Trader</h1>
-      <h2 style={metallicText}>Premium Jari & Zari Supplier</h2>
-      <p style={{ marginTop: "15px", fontSize: "18px" }}>
-        Wholesale Textile Materials | Fast Delivery Across India
-      </p>
-    </section>
+    <>
+      <section style={heroStyle}>
+        <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
+          Arman Trader
+        </h1>
+
+        <h2 style={metallicText}>
+          Premium Jari & Zari Supplier
+        </h2>
+
+        <p style={{ marginTop: "10px", color: "#ccc" }}>
+          Wholesale Textile Materials | Fast Delivery Across India
+        </p>
+      </section>
+
+      <Products />
+    </>
   );
 }
 
@@ -55,25 +64,24 @@ function About() {
       <h2 style={goldHeading}>About Arman Trader</h2>
 
       <p style={aboutText}>
-        Arman Trader is a trusted name in Surat textile market, supplying
-        premium quality Jari & Zari materials across Pan India.
+        Arman Trader is a trusted Jari & Zari supplier based in Surat,
+        delivering premium quality textile materials across Pan India.
       </p>
 
       <p style={aboutText}>
-        We provide a wide variety of Jari including Gold Jari, Silver Zari,
-        Copper Metallic Threads, Embroidery Threads and many more types.
-        Our products are known for shine, durability and competitive wholesale pricing.
+        We provide Gold Jari, Silver Zari, Metallic Threads,
+        Embroidery Threads and many more varieties at competitive wholesale rates.
       </p>
 
       <p style={aboutText}>
-        Whether you need bulk supply for saree manufacturing, embroidery work,
-        bridal fabrics or textile production, we deliver high quality material
-        at the best market rates with fast dispatch service across India.
+        Our products are known for shine, durability and smooth finishing,
+        making them ideal for saree manufacturing, bridal fabrics,
+        embroidery work and textile production.
       </p>
 
       <p style={aboutText}>
-        At Arman Trader, customer satisfaction, premium quality and timely delivery
-        are our top priorities.
+        We ensure fast dispatch, reliable service and best pricing
+        for bulk buyers across India.
       </p>
     </section>
   );
@@ -91,11 +99,9 @@ function Products() {
     "Heavy Work Jari",
     "Embroidery Roll Thread",
     "Luxury Finish Jari",
-    "Premium Textile Zari",
-    "Metallic Embroidery Thread",
-    "Bridal Zari Special",
     "Designer Gold Jari",
-    "Export Quality Zari"
+    "Export Quality Zari",
+    "Premium Metallic Thread"
   ];
 
   return (
@@ -134,7 +140,7 @@ function Contact() {
 
 const container = {
   fontFamily: "Poppins, sans-serif",
-  background: "linear-gradient(135deg,#0f0f0f,#1c1c1c,#111)",
+  background: "linear-gradient(135deg,#0f0f0f,#1a1a1a,#141414)",
   color: "#ffffff",
   minHeight: "100vh"
 };
@@ -161,29 +167,26 @@ const logoStyle = {
 };
 
 const heroStyle = {
-  padding: "120px 5%",
-  textAlign: "center"
-};
-
-const mainTitle = {
-  fontSize: "48px",
-  fontWeight: "bold"
+  padding: "80px 5%",
+  textAlign: "center",
+  background: "linear-gradient(90deg,#111,#1c1c1c,#111)",
+  borderBottom: "1px solid #333"
 };
 
 const metallicText = {
-  fontSize: "36px",
+  fontSize: "34px",
   background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent"
 };
 
 const sectionStyle = {
-  padding: "80px 8%",
+  padding: "60px 8%",
   textAlign: "center"
 };
 
 const goldHeading = {
-  fontSize: "32px",
+  fontSize: "28px",
   marginBottom: "40px",
   background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
   WebkitBackgroundClip: "text",
@@ -193,7 +196,8 @@ const goldHeading = {
 const aboutText = {
   maxWidth: "800px",
   margin: "15px auto",
-  lineHeight: "1.8"
+  lineHeight: "1.8",
+  color: "#ccc"
 };
 
 const gridStyle = {
@@ -206,7 +210,8 @@ const cardStyle = {
   background: "#1a1a1a",
   padding: "20px",
   borderRadius: "15px",
-  border: "1px solid #333"
+  border: "1px solid #333",
+  transition: "0.3s",
 };
 
 const imagePlaceholder = {
@@ -230,5 +235,6 @@ const footerStyle = {
   padding: "20px",
   textAlign: "center",
   borderTop: "1px solid #333",
-  marginTop: "40px"
+  marginTop: "40px",
+  color: "#aaa"
 };
