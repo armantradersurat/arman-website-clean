@@ -1,162 +1,234 @@
-import React, { useState, useEffect } from "react";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, onValue, remove } from "firebase/database";
-import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "firebase/storage";
-
-/* 🔥 PASTE YOUR FIREBASE CONFIG HERE */
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  databaseURL: "YOUR_DB_URL",
-  projectId: "YOUR_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "XXXX",
-  appId: "XXXX"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const storage = getStorage(app);
+import React, { useState } from "react";
 
 export default function App() {
 
-  const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: "",
-    oldPrice: "",
-    stockQty: "",
-    image: null
-  });
-
-  /* 🔥 FETCH PRODUCTS FROM DATABASE */
-  useEffect(() => {
-    const productsRef = ref(db, "products");
-    onValue(productsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const list = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
-        }));
-        setProducts(list);
-      }
-    });
-  }, []);
-
-  /* 🔥 ADD PRODUCT */
-  const addProduct = async () => {
-
-    if (!newProduct.image) return alert("Upload Image");
-
-    const imageRef = sRef(storage, "images/" + newProduct.image.name);
-    await uploadBytes(imageRef, newProduct.image);
-    const imageURL = await getDownloadURL(imageRef);
-
-    push(ref(db, "products"), {
-      name: newProduct.name,
-      price: Number(newProduct.price),
-      oldPrice: Number(newProduct.oldPrice),
-      stockQty: Number(newProduct.stockQty),
-      image: imageURL
-    });
-
-    setNewProduct({
-      name: "",
-      price: "",
-      oldPrice: "",
-      stockQty: "",
-      image: null
-    });
-  };
-
-  /* 🔥 DELETE PRODUCT */
-  const deleteProduct = (id) => {
-    remove(ref(db, "products/" + id));
-  };
-
-  const calculateDiscount = (oldPrice, price) =>
-    Math.round(((oldPrice - price) / oldPrice) * 100);
+  const [page, setPage] = useState("home");
 
   return (
-    <div style={{ background: "#111", color: "#fff", minHeight: "100vh", padding: "40px" }}>
+    <div style={container}>
 
-      <h1 style={{ color: "#FFD700" }}>Arman Trader – Admin Panel</h1>
+      {/* NAVBAR */}
+      <nav style={navStyle}>
+        <h2 style={logoStyle}>Arman Trader</h2>
 
-      {/* 🔥 ADD PRODUCT PANEL */}
-      <div style={{ background: "#222", padding: "20px", borderRadius: "10px", marginBottom: "40px" }}>
+        <div style={navLinks}>
+          <span onClick={() => setPage("home")}>Home</span>
+          <span onClick={() => setPage("about")}>About</span>
+          <span onClick={() => setPage("products")}>Products</span>
+          <span onClick={() => setPage("contact")}>Contact</span>
+        </div>
+      </nav>
 
-        <h2 style={{ color: "#FFD700" }}>Add New Product</h2>
+      {/* PAGE SWITCH */}
+      {page === "home" && <Home />}
+      {page === "about" && <About />}
+      {page === "products" && <Products />}
+      {page === "contact" && <Contact />}
 
-        <input placeholder="Name"
-          value={newProduct.name}
-          onChange={e => setNewProduct({ ...newProduct, name: e.target.value })}
-        />
-
-        <input placeholder="Old Price"
-          value={newProduct.oldPrice}
-          onChange={e => setNewProduct({ ...newProduct, oldPrice: e.target.value })}
-        />
-
-        <input placeholder="Price"
-          value={newProduct.price}
-          onChange={e => setNewProduct({ ...newProduct, price: e.target.value })}
-        />
-
-        <input placeholder="Stock Quantity"
-          value={newProduct.stockQty}
-          onChange={e => setNewProduct({ ...newProduct, stockQty: e.target.value })}
-        />
-
-        <input type="file"
-          onChange={e => setNewProduct({ ...newProduct, image: e.target.files[0] })}
-        />
-
-        <button onClick={addProduct} style={{ background: "green", color: "#fff", padding: "10px", marginTop: "10px" }}>
-          Add Product
-        </button>
-
-      </div>
-
-      {/* 🔥 PRODUCT LIST */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(250px,1fr))",
-        gap: "20px"
-      }}>
-        {products.map(product => (
-          <div key={product.id} style={{ background: "#222", padding: "15px", borderRadius: "10px" }}>
-
-            <img src={product.image} style={{ width: "100%", height: "200px", objectFit: "cover" }} />
-
-            <h3>{product.name}</h3>
-
-            <p>
-              <span style={{ textDecoration: "line-through", color: "gray" }}>
-                ₹{product.oldPrice}
-              </span>
-              <span style={{ color: "#FFD700", marginLeft: "10px" }}>
-                ₹{product.price}
-              </span>
-            </p>
-
-            <p>Stock: {product.stockQty}</p>
-
-            <p style={{ color: "red" }}>
-              🔥 {calculateDiscount(product.oldPrice, product.price)}% OFF
-            </p>
-
-            <button
-              onClick={() => deleteProduct(product.id)}
-              style={{ background: "red", color: "#fff", padding: "8px" }}
-            >
-              Delete
-            </button>
-
-          </div>
-        ))}
-      </div>
+      <footer style={footerStyle}>
+        © 2026 Arman Trader | Surat | Pan India Delivery
+      </footer>
 
     </div>
   );
 }
+
+/* ================= HOME ================= */
+
+function Home() {
+  return (
+    <section style={heroStyle}>
+      <h1 style={mainTitle}>Arman Trader</h1>
+      <h2 style={metallicText}>Premium Jari & Zari Supplier</h2>
+      <p style={{ marginTop: "15px", fontSize: "18px" }}>
+        Wholesale Textile Materials | Fast Delivery Across India
+      </p>
+    </section>
+  );
+}
+
+/* ================= ABOUT ================= */
+
+function About() {
+  return (
+    <section style={sectionStyle}>
+      <h2 style={goldHeading}>About Arman Trader</h2>
+
+      <p style={aboutText}>
+        Arman Trader is a trusted name in Surat textile market, supplying
+        premium quality Jari & Zari materials across Pan India.
+      </p>
+
+      <p style={aboutText}>
+        We provide a wide variety of Jari including Gold Jari, Silver Zari,
+        Copper Metallic Threads, Embroidery Threads and many more types.
+        Our products are known for shine, durability and competitive wholesale pricing.
+      </p>
+
+      <p style={aboutText}>
+        Whether you need bulk supply for saree manufacturing, embroidery work,
+        bridal fabrics or textile production, we deliver high quality material
+        at the best market rates with fast dispatch service across India.
+      </p>
+
+      <p style={aboutText}>
+        At Arman Trader, customer satisfaction, premium quality and timely delivery
+        are our top priorities.
+      </p>
+    </section>
+  );
+}
+
+/* ================= PRODUCTS ================= */
+
+function Products() {
+
+  const products = [
+    "Gold Jari 75D",
+    "Silver Zari Premium",
+    "Copper Metallic Thread",
+    "Ultra Shine Zari",
+    "Heavy Work Jari",
+    "Embroidery Roll Thread",
+    "Luxury Finish Jari",
+    "Premium Textile Zari",
+    "Metallic Embroidery Thread",
+    "Bridal Zari Special",
+    "Designer Gold Jari",
+    "Export Quality Zari"
+  ];
+
+  return (
+    <section style={sectionStyle}>
+      <h2 style={goldHeading}>Our Premium Products</h2>
+
+      <div style={gridStyle}>
+        {products.map((item, index) => (
+          <div key={index} style={cardStyle}>
+            <div style={imagePlaceholder}></div>
+            <h3>{item}</h3>
+            <p style={{ color: "#d4af37" }}>Best Wholesale Price</p>
+            <button style={btnStyle}>Order on WhatsApp</button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ================= CONTACT ================= */
+
+function Contact() {
+  return (
+    <section style={sectionStyle}>
+      <h2 style={goldHeading}>Contact Us</h2>
+
+      <p style={aboutText}>📍 Surat, Gujarat, India</p>
+      <p style={aboutText}>📞 +91 9625686843</p>
+      <p style={aboutText}>📦 Pan India Delivery Available</p>
+    </section>
+  );
+}
+
+/* ================= STYLES ================= */
+
+const container = {
+  fontFamily: "Poppins, sans-serif",
+  background: "linear-gradient(135deg,#0f0f0f,#1c1c1c,#111)",
+  color: "#ffffff",
+  minHeight: "100vh"
+};
+
+const navStyle = {
+  padding: "15px 5%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  borderBottom: "1px solid #333"
+};
+
+const navLinks = {
+  display: "flex",
+  gap: "25px",
+  cursor: "pointer"
+};
+
+const logoStyle = {
+  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  fontWeight: "bold"
+};
+
+const heroStyle = {
+  padding: "120px 5%",
+  textAlign: "center"
+};
+
+const mainTitle = {
+  fontSize: "48px",
+  fontWeight: "bold"
+};
+
+const metallicText = {
+  fontSize: "36px",
+  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent"
+};
+
+const sectionStyle = {
+  padding: "80px 8%",
+  textAlign: "center"
+};
+
+const goldHeading = {
+  fontSize: "32px",
+  marginBottom: "40px",
+  background: "linear-gradient(90deg,#FFD700,#f5c542,#b8860b)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent"
+};
+
+const aboutText = {
+  maxWidth: "800px",
+  margin: "15px auto",
+  lineHeight: "1.8"
+};
+
+const gridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gap: "25px"
+};
+
+const cardStyle = {
+  background: "#1a1a1a",
+  padding: "20px",
+  borderRadius: "15px",
+  border: "1px solid #333"
+};
+
+const imagePlaceholder = {
+  height: "180px",
+  background: "#333",
+  borderRadius: "10px",
+  marginBottom: "15px"
+};
+
+const btnStyle = {
+  marginTop: "10px",
+  padding: "10px",
+  background: "#25D366",
+  border: "none",
+  borderRadius: "6px",
+  color: "#fff",
+  cursor: "pointer"
+};
+
+const footerStyle = {
+  padding: "20px",
+  textAlign: "center",
+  borderTop: "1px solid #333",
+  marginTop: "40px"
+};
